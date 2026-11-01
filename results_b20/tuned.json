@@ -1,0 +1,103 @@
+{
+ "best": "a2.0_b0.0",
+ "alpha": 2.0,
+ "beta": 0.0,
+ "scores": {
+  "a0.0_b0.0": {
+   "probes_to_first/budget": 0.19066666666666668,
+   "coverage": 0.8933333333333333,
+   "false_claim_rate": 0.0,
+   "score": 0.29733333333333334
+  },
+  "a0.0_b0.02": {
+   "probes_to_first/budget": 0.19066666666666668,
+   "coverage": 0.8933333333333333,
+   "false_claim_rate": 0.0,
+   "score": 0.29733333333333334
+  },
+  "a0.0_b0.05": {
+   "probes_to_first/budget": 0.19066666666666668,
+   "coverage": 0.8933333333333333,
+   "false_claim_rate": 0.0,
+   "score": 0.29733333333333334
+  },
+  "a0.0_b0.1": {
+   "probes_to_first/budget": 0.19066666666666668,
+   "coverage": 0.8933333333333333,
+   "false_claim_rate": 0.0,
+   "score": 0.29733333333333334
+  },
+  "a0.5_b0.0": {
+   "probes_to_first/budget": 0.18933333333333333,
+   "coverage": 0.8933333333333333,
+   "false_claim_rate": 0.0,
+   "score": 0.29600000000000004
+  },
+  "a0.5_b0.02": {
+   "probes_to_first/budget": 0.18933333333333333,
+   "coverage": 0.8933333333333333,
+   "false_claim_rate": 0.0,
+   "score": 0.29600000000000004
+  },
+  "a0.5_b0.05": {
+   "probes_to_first/budget": 0.18933333333333333,
+   "coverage": 0.8933333333333333,
+   "false_claim_rate": 0.0,
+   "score": 0.29600000000000004
+  },
+  "a0.5_b0.1": {
+   "probes_to_first/budget": 0.18933333333333333,
+   "coverage": 0.8933333333333333,
+   "false_claim_rate": 0.0,
+   "score": 0.29600000000000004
+  },
+  "a1.0_b0.0": {
+   "probes_to_first/budget": 0.18933333333333333,
+   "coverage": 0.8933333333333333,
+   "false_claim_rate": 0.0,
+   "score": 0.29600000000000004
+  },
+  "a1.0_b0.02": {
+   "probes_to_first/budget": 0.18933333333333333,
+   "coverage": 0.8933333333333333,
+   "false_claim_rate": 0.0,
+   "score": 0.29600000000000004
+  },
+  "a1.0_b0.05": {
+   "probes_to_first/budget": 0.18933333333333333,
+   "coverage": 0.8933333333333333,
+   "false_claim_rate": 0.0,
+   "score": 0.29600000000000004
+  },
+  "a1.0_b0.1": {
+   "probes_to_first/budget": 0.18933333333333333,
+   "coverage": 0.8933333333333333,
+   "false_claim_rate": 0.0,
+   "score": 0.29600000000000004
+  },
+  "a2.0_b0.0": {
+   "probes_to_first/budget": 0.1706666666666667,
+   "coverage": 0.9,
+   "false_claim_rate": 0.0,
+   "score": 0.27066666666666667
+  },
+  "a2.0_b0.02": {
+   "probes_to_first/budget": 0.1706666666666667,
+   "coverage": 0.9,
+   "false_claim_rate": 0.0,
+   "score": 0.27066666666666667
+  },
+  "a2.0_b0.05": {
+   "probes_to_first/budget": 0.17333333333333334,
+   "coverage": 0.8866666666666667,
+   "false_claim_rate": 0.0,
+   "score": 0.2866666666666666
+  },
+  "a2.0_b0.1": {
+   "probes_to_first/budget": 0.17866666666666667,
+   "coverage": 0.8866666666666667,
+   "false_claim_rate": 0.0,
+   "score": 0.2919999999999999
+  }
+ }
+}

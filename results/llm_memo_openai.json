@@ -1,0 +1,1738 @@
+{
+ "2f8e24389b67c941ff0938e51483f3011b16bb5fa2f0198b0469dc6b4cc77cfe": {
+  "steps": [
+   {
+    "approval_ref": null,
+    "fields": [
+     {
+      "key": "record_type",
+      "value": "invoice"
+     },
+     {
+      "key": "invoice_id",
+      "value": "INV-UMBRELLA-9-D"
+     },
+     {
+      "key": "customer_account",
+      "value": "UMBRELLA-9"
+     },
+     {
+      "key": "invoice_date",
+      "value": "2026-10-10"
+     },
+     {
+      "key": "due_date",
+      "value": "2026-11-09"
+     },
+     {
+      "key": "currency",
+      "value": "USD"
+     },
+     {
+      "key": "subtotal_amount",
+      "value": "{{subtotal_amount}}"
+     },
+     {
+      "key": "tax_amount",
+      "value": "{{tax_amount}}"
+     },
+     {
+      "key": "amount_total",
+      "value": "{{amount_total}}"
+     },
+     {
+      "key": "line_items",
+      "value": "[{\"description\":\"Services for Task D\",\"quantity\":1,\"unit_price\":\"{{unit_price}}\",\"amount\":\"{{subtotal_amount}}\"}]"
+     },
+     {
+      "key": "ledger_account",
+      "value": "Accounts Receivable"
+     },
+     {
+      "key": "status",
+      "value": "issued"
+     },
+     {
+      "key": "notes",
+      "value": "Task D invoice for customer UMBRELLA-9; will be sent via queued message."
+     }
+    ],
+    "id": "d_record"
+   },
+   {
+    "approval_ref": null,
+    "fields": [
+     {
+      "key": "channel",
+      "value": "email"
+     },
+     {
+      "key": "recipient_account",
+      "value": "UMBRELLA-9"
+     },
+     {
+      "key": "to",
+      "value": "{{billing_email}}"
+     },
+     {
+      "key": "subject",
+      "value": "Invoice INV-UMBRELLA-9-D from Your Company"
+     },
+     {
+      "key": "body",
+      "value": "Hello,\n\nPlease find your invoice INV-UMBRELLA-9-D attached. Amount due: {{amount_total}} {{currency}}. Due by 2026-11-09.\n\nYou can pay using this link: {{payment_link}}\n\nThank you,\nYour Company Billing"
+     },
+     {
+      "key": "attachments",
+      "value": "[{\"type\":\"invoice_pdf\",\"id\":\"INV-UMBRELLA-9-D\"}]"
+     },
+     {
+      "key": "amount_due",
+      "value": "{{amount_total}}"
+     },
+     {
+      "key": "currency",
+      "value": "USD"
+     },
+     {
+      "key": "invoice_id",
+      "value": "INV-UMBRELLA-9-D"
+     },
+     {
+      "key": "message_queue",
+      "value": "outbound"
+     },
+     {
+      "key": "correlation_id",
+      "value": "INV-UMBRELLA-9-D"
+     }
+    ],
+    "id": "d_send"
+   }
+  ]
+ },
+ "453d67b3a7d3726e5d0230908bf99c96177b16804bd74a89b1ae620150015f23": {
+  "steps": [
+   {
+    "approval_ref": null,
+    "fields": [
+     {
+      "key": "action",
+      "value": "write_record"
+     },
+     {
+      "key": "record_type",
+      "value": "payroll_entry"
+     },
+     {
+      "key": "account_id",
+      "value": "ACME-104"
+     },
+     {
+      "key": "external_ref",
+      "value": "task-A"
+     },
+     {
+      "key": "description",
+      "value": "Payroll entry for Task A (customer account ACME-104)"
+     },
+     {
+      "key": "pay_period",
+      "value": "{{pay_period}}"
+     },
+     {
+      "key": "pay_date",
+      "value": "{{pay_date}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{currency}}"
+     },
+     {
+      "key": "gross_amount",
+      "value": "{{gross_amount}}"
+     },
+     {
+      "key": "tax_withheld",
+      "value": "{{tax_withheld}}"
+     },
+     {
+      "key": "net_amount",
+      "value": "{{net_amount}}"
+     },
+     {
+      "key": "ledger_account",
+      "value": "Payroll Expense"
+     },
+     {
+      "key": "counterparty_account",
+      "value": "Payroll Payable"
+     }
+    ],
+    "id": "record"
+   },
+   {
+    "approval_ref": null,
+    "fields": [
+     {
+      "key": "action",
+      "value": "send_message"
+     },
+     {
+      "key": "channel",
+      "value": "email"
+     },
+     {
+      "key": "recipient_account",
+      "value": "ACME-104"
+     },
+     {
+      "key": "recipient_email",
+      "value": "{{payslip_email}}"
+     },
+     {
+      "key": "subject",
+      "value": "Your payslip for Task A"
+     },
+     {
+      "key": "message",
+      "value": "Hello,\n\nYour payslip for {{pay_period}} is ready. Net pay: {{net_amount}} {{currency}}.\nYou can view or download your payslip here: {{payslip_link}}.\n\nReference: Task A / {{record_id}}.\n\nThank you."
+     },
+     {
+      "key": "related_record_ref",
+      "value": "{{record_id}}"
+     }
+    ],
+    "id": "notify"
+   }
+  ]
+ },
+ "454d813bd79aba6d2c25642a26af2e691934908a5ac2eee6311b634e92619a63": {
+  "steps": [
+   {
+    "approval_ref": null,
+    "fields": [
+     {
+      "key": "record_type",
+      "value": "refund"
+     },
+     {
+      "key": "account_id",
+      "value": "ACME-104"
+     },
+     {
+      "key": "task_id",
+      "value": "task A"
+     },
+     {
+      "key": "amount",
+      "value": "{{refund_amount}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{currency}}"
+     },
+     {
+      "key": "reason",
+      "value": "{{refund_reason}}"
+     },
+     {
+      "key": "method",
+      "value": "{{refund_method}}"
+     },
+     {
+      "key": "original_transaction_id",
+      "value": "{{original_transaction_id}}"
+     },
+     {
+      "key": "refund_id",
+      "value": "{{refund_id}}"
+     },
+     {
+      "key": "note",
+      "value": "Automated refund recorded for account ACME-104 under task A"
+     }
+    ],
+    "id": "record"
+   },
+   {
+    "approval_ref": null,
+    "fields": [
+     {
+      "key": "channel",
+      "value": "email"
+     },
+     {
+      "key": "recipient",
+      "value": "account:ACME-104:primary_contact"
+     },
+     {
+      "key": "subject",
+      "value": "Your refund has been issued"
+     },
+     {
+      "key": "body",
+      "value": "Hello,\n\nWe\u2019ve issued a refund of {{refund_amount}} {{currency}} to your original payment method for account ACME-104.\nReason: {{refund_reason}}\nReference: {{refund_id}}\n\nPlease allow 5\u201310 business days for the refund to appear, depending on your bank or card issuer. If you have any questions, just reply to this message.\n\nThank you."
+     },
+     {
+      "key": "message_type",
+      "value": "refund_notification"
+     }
+    ],
+    "id": "notify"
+   }
+  ]
+ },
+ "4f2e7cad815132e8e4c842a075628342a95bde80a0b3340ff4a5f7a001fe1e45": {
+  "steps": [
+   {
+    "approval_ref": null,
+    "fields": [
+     {
+      "key": "operation",
+      "value": "insert"
+     },
+     {
+      "key": "table",
+      "value": "refunds"
+     },
+     {
+      "key": "account_id",
+      "value": "UMBRELLA-9"
+     },
+     {
+      "key": "refund_id",
+      "value": "{{refund.id}}"
+     },
+     {
+      "key": "order_id",
+      "value": "{{order.id}}"
+     },
+     {
+      "key": "amount",
+      "value": "{{refund.amount}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{refund.currency}}"
+     },
+     {
+      "key": "reason",
+      "value": "{{refund.reason}}"
+     },
+     {
+      "key": "method",
+      "value": "{{refund.method}}"
+     },
+     {
+      "key": "status",
+      "value": "recorded"
+     },
+     {
+      "key": "initiated_by",
+      "value": "{{agent.id}}"
+     },
+     {
+      "key": "created_at",
+      "value": "{{now}}"
+     },
+     {
+      "key": "correlation_id",
+      "value": "{{workflow.run_id}}"
+     }
+    ],
+    "id": "d_record"
+   },
+   {
+    "approval_ref": null,
+    "fields": [
+     {
+      "key": "channel",
+      "value": "{{notification.channel}}"
+     },
+     {
+      "key": "recipient_id",
+      "value": "UMBRELLA-9"
+     },
+     {
+      "key": "to",
+      "value": "{{customer.contact}}"
+     },
+     {
+      "key": "template_id",
+      "value": "refund_notification_v1"
+     },
+     {
+      "key": "subject",
+      "value": "Your refund has been issued"
+     },
+     {
+      "key": "body",
+      "value": "Hello {{customer.name}}, your refund of {{refund.amount}} {{refund.currency}} for order {{order.id}} has been processed. Refund ID: {{refund.id}}. Funds should appear within {{refund.timeframe}}. If you have questions, reply to this message or visit {{portal.refund_status_url}}."
+     },
+     {
+      "key": "var_refund_id",
+      "value": "{{refund.id}}"
+     },
+     {
+      "key": "var_amount",
+      "value": "{{refund.amount}}"
+     },
+     {
+      "key": "var_currency",
+      "value": "{{refund.currency}}"
+     },
+     {
+      "key": "var_order_id",
+      "value": "{{order.id}}"
+     },
+     {
+      "key": "var_timeframe",
+      "value": "{{refund.timeframe}}"
+     },
+     {
+      "key": "var_support_url",
+      "value": "{{portal.refund_status_url}}"
+     },
+     {
+      "key": "correlation_id",
+      "value": "{{workflow.run_id}}"
+     }
+    ],
+    "id": "d_send"
+   }
+  ]
+ },
+ "579dc030d8a11df51edcaf5d2466ab124fef0e53af6aeb17c1515d35dbcb59f2": {
+  "steps": [
+   {
+    "approval_ref": "approval:B:record",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "invoice_direct_pair"
+     },
+     {
+      "key": "role",
+      "value": "B"
+     },
+     {
+      "key": "ref",
+      "value": "B-record"
+     },
+     {
+      "key": "action",
+      "value": "write_record"
+     },
+     {
+      "key": "object",
+      "value": "ledger_entry"
+     },
+     {
+      "key": "ledger",
+      "value": "accounts_receivable"
+     },
+     {
+      "key": "entry_type",
+      "value": "invoice_issued"
+     },
+     {
+      "key": "customer_account_id",
+      "value": "GLOBEX-221"
+     },
+     {
+      "key": "invoice_number",
+      "value": "INV-GLOBEX-221-B"
+     },
+     {
+      "key": "amount",
+      "value": "{{amount}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{currency}}"
+     },
+     {
+      "key": "issue_date",
+      "value": "{{issue_date}}"
+     },
+     {
+      "key": "due_date",
+      "value": "{{due_date}}"
+     },
+     {
+      "key": "description",
+      "value": "Invoice for task B for customer account GLOBEX-221"
+     },
+     {
+      "key": "status",
+      "value": "open"
+     },
+     {
+      "key": "line_items",
+      "value": "[{\"description\":\"Task B services\",\"quantity\":1,\"unit_price\":\"{{amount}}\",\"currency\":\"{{currency}}\"}]"
+     },
+     {
+      "key": "idempotency_key",
+      "value": "ledger:GLOBEX-221:INV-GLOBEX-221-B"
+     }
+    ],
+    "id": "record"
+   },
+   {
+    "approval_ref": "approval:B:notify",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "invoice_direct_pair"
+     },
+     {
+      "key": "role",
+      "value": "B"
+     },
+     {
+      "key": "ref",
+      "value": "B-notify"
+     },
+     {
+      "key": "action",
+      "value": "send_message"
+     },
+     {
+      "key": "channel",
+      "value": "email"
+     },
+     {
+      "key": "recipient_account_id",
+      "value": "GLOBEX-221"
+     },
+     {
+      "key": "recipient_fallback_email",
+      "value": "{{billing_email}}"
+     },
+     {
+      "key": "subject",
+      "value": "Invoice INV-GLOBEX-221-B from Your Company"
+     },
+     {
+      "key": "template",
+      "value": "invoice_issued"
+     },
+     {
+      "key": "body",
+      "value": "Hello,\n\nPlease find your invoice INV-GLOBEX-221-B for {{amount}} {{currency}}. The due date is {{due_date}}. You can view and pay your invoice here: {{invoice_url}}.\n\nThank you."
+     },
+     {
+      "key": "invoice_number",
+      "value": "INV-GLOBEX-221-B"
+     },
+     {
+      "key": "amount",
+      "value": "{{amount}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{currency}}"
+     },
+     {
+      "key": "due_date",
+      "value": "{{due_date}}"
+     },
+     {
+      "key": "invoice_url",
+      "value": "{{invoice_url}}"
+     }
+    ],
+    "id": "notify"
+   }
+  ]
+ },
+ "6cf3f5637cf12b3152af315cd6af7359e98cc9bce1ba21864736a75de1d43a8c": {
+  "steps": [
+   {
+    "approval_ref": "approval:C:record",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "refund_direct_pair"
+     },
+     {
+      "key": "role",
+      "value": "C"
+     },
+     {
+      "key": "ref",
+      "value": "C-record"
+     },
+     {
+      "key": "record_type",
+      "value": "refund"
+     },
+     {
+      "key": "account_id",
+      "value": "INITECH-37"
+     },
+     {
+      "key": "task_id",
+      "value": "task C"
+     },
+     {
+      "key": "amount",
+      "value": "{{refund_amount}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{currency}}"
+     },
+     {
+      "key": "reason",
+      "value": "{{refund_reason}}"
+     },
+     {
+      "key": "method",
+      "value": "{{refund_method}}"
+     },
+     {
+      "key": "original_transaction_id",
+      "value": "{{original_transaction_id}}"
+     },
+     {
+      "key": "refund_id",
+      "value": "{{refund_id}}"
+     },
+     {
+      "key": "note",
+      "value": "Automated refund recorded for account INITECH-37 under task C"
+     }
+    ],
+    "id": "record"
+   },
+   {
+    "approval_ref": "approval:C:notify",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "refund_direct_pair"
+     },
+     {
+      "key": "role",
+      "value": "C"
+     },
+     {
+      "key": "ref",
+      "value": "C-notify"
+     },
+     {
+      "key": "channel",
+      "value": "email"
+     },
+     {
+      "key": "recipient",
+      "value": "account:INITECH-37:primary_contact"
+     },
+     {
+      "key": "subject",
+      "value": "Your refund has been issued"
+     },
+     {
+      "key": "body",
+      "value": "Hello,\n\nWe\u2019ve issued a refund of {{refund_amount}} {{currency}} to your original payment method for account INITECH-37.\nReason: {{refund_reason}}\nReference: {{refund_id}}\n\nPlease allow 5\u201310 business days for the refund to appear, depending on your bank or card issuer. If you have any questions, just reply to this message.\n\nThank you."
+     },
+     {
+      "key": "message_type",
+      "value": "refund_notification"
+     }
+    ],
+    "id": "notify"
+   }
+  ]
+ },
+ "83ed34b6d008bde116fc043da57241252427354e0c422dae1dd9400d29737469": {
+  "steps": [
+   {
+    "approval_ref": "approval:B:ledger",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "invoice_demo"
+     },
+     {
+      "key": "role",
+      "value": "B"
+     },
+     {
+      "key": "ref",
+      "value": "B-ledger"
+     },
+     {
+      "key": "record_type",
+      "value": "invoice_issued"
+     },
+     {
+      "key": "account_id",
+      "value": "GLOBEX-221"
+     },
+     {
+      "key": "invoice_id",
+      "value": "INV-GLOBEX-221-2026-10-10-B"
+     },
+     {
+      "key": "amount",
+      "value": "unknown"
+     },
+     {
+      "key": "currency",
+      "value": "USD"
+     },
+     {
+      "key": "issue_date",
+      "value": "2026-10-10"
+     },
+     {
+      "key": "due_date",
+      "value": "2026-11-09"
+     },
+     {
+      "key": "description",
+      "value": "Task B invoice for customer account GLOBEX-221"
+     },
+     {
+      "key": "status",
+      "value": "issued"
+     },
+     {
+      "key": "ledger_account",
+      "value": "accounts_receivable"
+     },
+     {
+      "key": "created_by",
+      "value": "workflow_runtime"
+     }
+    ],
+    "id": "ledger"
+   },
+   {
+    "approval_ref": "approval:B:send_invoice",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "invoice_demo"
+     },
+     {
+      "key": "role",
+      "value": "B"
+     },
+     {
+      "key": "ref",
+      "value": "B-send_invoice"
+     },
+     {
+      "key": "recipient",
+      "value": "billing@globex.example"
+     },
+     {
+      "key": "recipient_name",
+      "value": "Accounts Payable, GLOBEX"
+     },
+     {
+      "key": "subject",
+      "value": "Invoice INV-GLOBEX-221-2026-10-10-B from Example Corp"
+     },
+     {
+      "key": "message",
+      "value": "Hello GLOBEX team,\n\nPlease find attached the invoice INV-GLOBEX-221-2026-10-10-B for Task B. The amount is currently marked as unknown; we will update once finalized. Due date: 2026-11-09.\n\nThank you,\nAccounts Receivable"
+     },
+     {
+      "key": "channel",
+      "value": "email"
+     },
+     {
+      "key": "reply_to",
+      "value": "ar@example.com"
+     },
+     {
+      "key": "priority",
+      "value": "normal"
+     },
+     {
+      "key": "invoice_id",
+      "value": "INV-GLOBEX-221-2026-10-10-B"
+     },
+     {
+      "key": "account_id",
+      "value": "GLOBEX-221"
+     },
+     {
+      "key": "amount",
+      "value": "unknown"
+     },
+     {
+      "key": "currency",
+      "value": "USD"
+     },
+     {
+      "key": "due_date",
+      "value": "2026-11-09"
+     },
+     {
+      "key": "attachments",
+      "value": "https://invoices.example.com/INV-GLOBEX-221-2026-10-10-B.pdf"
+     }
+    ],
+    "id": "send_invoice"
+   }
+  ]
+ },
+ "84c427b13cd06febcf81eb3370ff93d644a5620653e16c412031f7db7ed831c5": {
+  "steps": [
+   {
+    "approval_ref": null,
+    "fields": [
+     {
+      "key": "action",
+      "value": "write_record"
+     },
+     {
+      "key": "object",
+      "value": "ledger_entry"
+     },
+     {
+      "key": "ledger",
+      "value": "accounts_receivable"
+     },
+     {
+      "key": "entry_type",
+      "value": "invoice_issued"
+     },
+     {
+      "key": "customer_account_id",
+      "value": "ACME-104"
+     },
+     {
+      "key": "invoice_number",
+      "value": "INV-ACME-104-A"
+     },
+     {
+      "key": "amount",
+      "value": "{{amount}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{currency}}"
+     },
+     {
+      "key": "issue_date",
+      "value": "{{issue_date}}"
+     },
+     {
+      "key": "due_date",
+      "value": "{{due_date}}"
+     },
+     {
+      "key": "description",
+      "value": "Invoice for task A for customer account ACME-104"
+     },
+     {
+      "key": "status",
+      "value": "open"
+     },
+     {
+      "key": "line_items",
+      "value": "[{\"description\":\"Task A services\",\"quantity\":1,\"unit_price\":\"{{amount}}\",\"currency\":\"{{currency}}\"}]"
+     },
+     {
+      "key": "idempotency_key",
+      "value": "ledger:ACME-104:INV-ACME-104-A"
+     }
+    ],
+    "id": "record"
+   },
+   {
+    "approval_ref": null,
+    "fields": [
+     {
+      "key": "action",
+      "value": "send_message"
+     },
+     {
+      "key": "channel",
+      "value": "email"
+     },
+     {
+      "key": "recipient_account_id",
+      "value": "ACME-104"
+     },
+     {
+      "key": "recipient_fallback_email",
+      "value": "{{billing_email}}"
+     },
+     {
+      "key": "subject",
+      "value": "Invoice INV-ACME-104-A from Your Company"
+     },
+     {
+      "key": "template",
+      "value": "invoice_issued"
+     },
+     {
+      "key": "body",
+      "value": "Hello,\\n\\nPlease find your invoice INV-ACME-104-A for {{amount}} {{currency}}. The due date is {{due_date}}. You can view and pay your invoice here: {{invoice_url}}.\\n\\nThank you."
+     },
+     {
+      "key": "invoice_number",
+      "value": "INV-ACME-104-A"
+     },
+     {
+      "key": "amount",
+      "value": "{{amount}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{currency}}"
+     },
+     {
+      "key": "due_date",
+      "value": "{{due_date}}"
+     },
+     {
+      "key": "invoice_url",
+      "value": "{{invoice_url}}"
+     }
+    ],
+    "id": "notify"
+   }
+  ]
+ },
+ "8a06c912213d9eb98906fb83967df3c9ec77a97c01aa74716cbc656e9904ce1d": {
+  "steps": [
+   {
+    "approval_ref": "approval:C:record",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "payroll_direct_pair"
+     },
+     {
+      "key": "role",
+      "value": "C"
+     },
+     {
+      "key": "ref",
+      "value": "C-record"
+     },
+     {
+      "key": "action",
+      "value": "write_record"
+     },
+     {
+      "key": "record_type",
+      "value": "payroll_entry"
+     },
+     {
+      "key": "account_id",
+      "value": "INITECH-37"
+     },
+     {
+      "key": "external_ref",
+      "value": "task-C"
+     },
+     {
+      "key": "description",
+      "value": "Payroll entry for Task C (customer account INITECH-37)"
+     },
+     {
+      "key": "pay_period",
+      "value": "{{pay_period}}"
+     },
+     {
+      "key": "pay_date",
+      "value": "{{pay_date}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{currency}}"
+     },
+     {
+      "key": "gross_amount",
+      "value": "{{gross_amount}}"
+     },
+     {
+      "key": "tax_withheld",
+      "value": "{{tax_withheld}}"
+     },
+     {
+      "key": "net_amount",
+      "value": "{{net_amount}}"
+     },
+     {
+      "key": "ledger_account",
+      "value": "Payroll Expense"
+     },
+     {
+      "key": "counterparty_account",
+      "value": "Payroll Payable"
+     }
+    ],
+    "id": "record"
+   },
+   {
+    "approval_ref": "approval:C:notify",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "payroll_direct_pair"
+     },
+     {
+      "key": "role",
+      "value": "C"
+     },
+     {
+      "key": "ref",
+      "value": "C-notify"
+     },
+     {
+      "key": "action",
+      "value": "send_message"
+     },
+     {
+      "key": "channel",
+      "value": "email"
+     },
+     {
+      "key": "recipient_account",
+      "value": "INITECH-37"
+     },
+     {
+      "key": "recipient_email",
+      "value": "{{payslip_email}}"
+     },
+     {
+      "key": "subject",
+      "value": "Your payslip for Task C"
+     },
+     {
+      "key": "message",
+      "value": "Hello,\n\nYour payslip for {{pay_period}} is ready. Net pay: {{net_amount}} {{currency}}.\nYou can view or download your payslip here: {{payslip_link}}.\n\nReference: Task C / {{record_id}}.\n\nThank you."
+     },
+     {
+      "key": "related_record_ref",
+      "value": "{{record_id}}"
+     }
+    ],
+    "id": "notify"
+   }
+  ]
+ },
+ "99bf3fb8d91b76b78b9ecb67d010293181f4ba8dacbd3ab89046bc45d3cfab72": {
+  "steps": [
+   {
+    "approval_ref": "approval:B:record",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "refund_direct_pair"
+     },
+     {
+      "key": "role",
+      "value": "B"
+     },
+     {
+      "key": "ref",
+      "value": "B-record"
+     },
+     {
+      "key": "record_type",
+      "value": "refund"
+     },
+     {
+      "key": "account_id",
+      "value": "GLOBEX-221"
+     },
+     {
+      "key": "task_id",
+      "value": "task B"
+     },
+     {
+      "key": "amount",
+      "value": "{{refund_amount}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{currency}}"
+     },
+     {
+      "key": "reason",
+      "value": "{{refund_reason}}"
+     },
+     {
+      "key": "method",
+      "value": "{{refund_method}}"
+     },
+     {
+      "key": "original_transaction_id",
+      "value": "{{original_transaction_id}}"
+     },
+     {
+      "key": "refund_id",
+      "value": "{{refund_id}}"
+     },
+     {
+      "key": "note",
+      "value": "Automated refund recorded for account GLOBEX-221 under task B"
+     }
+    ],
+    "id": "record"
+   },
+   {
+    "approval_ref": "approval:B:notify",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "refund_direct_pair"
+     },
+     {
+      "key": "role",
+      "value": "B"
+     },
+     {
+      "key": "ref",
+      "value": "B-notify"
+     },
+     {
+      "key": "channel",
+      "value": "email"
+     },
+     {
+      "key": "recipient",
+      "value": "account:GLOBEX-221:primary_contact"
+     },
+     {
+      "key": "subject",
+      "value": "Your refund has been issued"
+     },
+     {
+      "key": "body",
+      "value": "Hello,\n\nWe\u2019ve issued a refund of {{refund_amount}} {{currency}} to your original payment method for account GLOBEX-221.\nReason: {{refund_reason}}\nReference: {{refund_id}}\n\nPlease allow 5\u201310 business days for the refund to appear, depending on your bank or card issuer. If you have any questions, just reply to this message.\n\nThank you."
+     },
+     {
+      "key": "message_type",
+      "value": "refund_notification"
+     }
+    ],
+    "id": "notify"
+   }
+  ]
+ },
+ "a8f13c996eb4e1c7dbd28c19d20068f027ce58f0621195a36cf1e23a2eed9d75": {
+  "steps": [
+   {
+    "approval_ref": "approval:C:record",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "invoice_direct_pair"
+     },
+     {
+      "key": "role",
+      "value": "C"
+     },
+     {
+      "key": "ref",
+      "value": "C-record"
+     },
+     {
+      "key": "action",
+      "value": "write_record"
+     },
+     {
+      "key": "object",
+      "value": "ledger_entry"
+     },
+     {
+      "key": "ledger",
+      "value": "accounts_receivable"
+     },
+     {
+      "key": "entry_type",
+      "value": "invoice_issued"
+     },
+     {
+      "key": "customer_account_id",
+      "value": "INITECH-37"
+     },
+     {
+      "key": "invoice_number",
+      "value": "INV-INITECH-37-C"
+     },
+     {
+      "key": "amount",
+      "value": "{{amount}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{currency}}"
+     },
+     {
+      "key": "issue_date",
+      "value": "{{issue_date}}"
+     },
+     {
+      "key": "due_date",
+      "value": "{{due_date}}"
+     },
+     {
+      "key": "description",
+      "value": "Invoice for task C for customer account INITECH-37"
+     },
+     {
+      "key": "status",
+      "value": "open"
+     },
+     {
+      "key": "line_items",
+      "value": "[{\"description\":\"Task C services\",\"quantity\":1,\"unit_price\":\"{{amount}}\",\"currency\":\"{{currency}}\"}]"
+     },
+     {
+      "key": "idempotency_key",
+      "value": "ledger:INITECH-37:INV-INITECH-37-C"
+     }
+    ],
+    "id": "record"
+   },
+   {
+    "approval_ref": "approval:C:notify",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "invoice_direct_pair"
+     },
+     {
+      "key": "role",
+      "value": "C"
+     },
+     {
+      "key": "ref",
+      "value": "C-notify"
+     },
+     {
+      "key": "action",
+      "value": "send_message"
+     },
+     {
+      "key": "channel",
+      "value": "email"
+     },
+     {
+      "key": "recipient_account_id",
+      "value": "INITECH-37"
+     },
+     {
+      "key": "recipient_fallback_email",
+      "value": "{{billing_email}}"
+     },
+     {
+      "key": "subject",
+      "value": "Invoice INV-INITECH-37-C from Your Company"
+     },
+     {
+      "key": "template",
+      "value": "invoice_issued"
+     },
+     {
+      "key": "body",
+      "value": "Hello,\\n\\nPlease find your invoice INV-INITECH-37-C for {{amount}} {{currency}}. The due date is {{due_date}}. You can view and pay your invoice here: {{invoice_url}}.\\n\\nThank you."
+     },
+     {
+      "key": "invoice_number",
+      "value": "INV-INITECH-37-C"
+     },
+     {
+      "key": "amount",
+      "value": "{{amount}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{currency}}"
+     },
+     {
+      "key": "due_date",
+      "value": "{{due_date}}"
+     },
+     {
+      "key": "invoice_url",
+      "value": "{{invoice_url}}"
+     }
+    ],
+    "id": "notify"
+   }
+  ]
+ },
+ "a9ca0e0e62e44fa137aafea72b1c4e89721887fa7055fcaebf1e1b5807b03649": {
+  "steps": [
+   {
+    "approval_ref": null,
+    "fields": [
+     {
+      "key": "collection",
+      "value": "payroll_entries"
+     },
+     {
+      "key": "account_id",
+      "value": "UMBRELLA-9"
+     },
+     {
+      "key": "task_id",
+      "value": "D"
+     },
+     {
+      "key": "period_start",
+      "value": "{{period_start}}"
+     },
+     {
+      "key": "period_end",
+      "value": "{{period_end}}"
+     },
+     {
+      "key": "pay_date",
+      "value": "{{pay_date}}"
+     },
+     {
+      "key": "gross_amount",
+      "value": "{{gross_amount}}"
+     },
+     {
+      "key": "deductions_amount",
+      "value": "{{deductions_amount}}"
+     },
+     {
+      "key": "net_amount",
+      "value": "{{net_amount}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{currency}}"
+     },
+     {
+      "key": "memo",
+      "value": "Payroll entry for UMBRELLA-9 (task D)."
+     }
+    ],
+    "id": "d_record"
+   },
+   {
+    "approval_ref": null,
+    "fields": [
+     {
+      "key": "queue",
+      "value": "payroll_outbound"
+     },
+     {
+      "key": "recipient_ref",
+      "value": "account_primary_contact:UMBRELLA-9"
+     },
+     {
+      "key": "delivery_channel",
+      "value": "email"
+     },
+     {
+      "key": "subject",
+      "value": "Your payslip for {{period_start}}\u2013{{period_end}} is ready"
+     },
+     {
+      "key": "message_template",
+      "value": "payslip_notice_v1"
+     },
+     {
+      "key": "related_record_ref",
+      "value": "{{d_record.record_id}}"
+     },
+     {
+      "key": "account_id",
+      "value": "UMBRELLA-9"
+     },
+     {
+      "key": "pay_date",
+      "value": "{{pay_date}}"
+     },
+     {
+      "key": "net_amount",
+      "value": "{{net_amount}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{currency}}"
+     }
+    ],
+    "id": "d_send"
+   }
+  ]
+ },
+ "c9354cf7e8500ca4b2cb50eadcca617ed0c23c0f6d9c1ab4609137c44038409e": {
+  "steps": [
+   {
+    "approval_ref": "approval:B:record",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "payroll_direct_pair"
+     },
+     {
+      "key": "role",
+      "value": "B"
+     },
+     {
+      "key": "ref",
+      "value": "B-record"
+     },
+     {
+      "key": "action",
+      "value": "write_record"
+     },
+     {
+      "key": "record_type",
+      "value": "payroll_entry"
+     },
+     {
+      "key": "account_id",
+      "value": "GLOBEX-221"
+     },
+     {
+      "key": "external_ref",
+      "value": "task-B"
+     },
+     {
+      "key": "description",
+      "value": "Payroll entry for Task B (customer account GLOBEX-221)"
+     },
+     {
+      "key": "pay_period",
+      "value": "{{pay_period}}"
+     },
+     {
+      "key": "pay_date",
+      "value": "{{pay_date}}"
+     },
+     {
+      "key": "currency",
+      "value": "{{currency}}"
+     },
+     {
+      "key": "gross_amount",
+      "value": "{{gross_amount}}"
+     },
+     {
+      "key": "tax_withheld",
+      "value": "{{tax_withheld}}"
+     },
+     {
+      "key": "net_amount",
+      "value": "{{net_amount}}"
+     },
+     {
+      "key": "ledger_account",
+      "value": "Payroll Expense"
+     },
+     {
+      "key": "counterparty_account",
+      "value": "Payroll Payable"
+     }
+    ],
+    "id": "record"
+   },
+   {
+    "approval_ref": "approval:B:notify",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "payroll_direct_pair"
+     },
+     {
+      "key": "role",
+      "value": "B"
+     },
+     {
+      "key": "ref",
+      "value": "B-notify"
+     },
+     {
+      "key": "action",
+      "value": "send_message"
+     },
+     {
+      "key": "channel",
+      "value": "email"
+     },
+     {
+      "key": "recipient_account",
+      "value": "GLOBEX-221"
+     },
+     {
+      "key": "recipient_email",
+      "value": "{{payslip_email}}"
+     },
+     {
+      "key": "subject",
+      "value": "Your payslip for Task B"
+     },
+     {
+      "key": "message",
+      "value": "Hello,\n\nYour payslip for {{pay_period}} is ready. Net pay: {{net_amount}} {{currency}}.\nYou can view or download your payslip here: {{payslip_link}}.\n\nReference: Task B / {{record_id}}.\n\nThank you."
+     },
+     {
+      "key": "related_record_ref",
+      "value": "{{record_id}}"
+     }
+    ],
+    "id": "notify"
+   }
+  ]
+ },
+ "f17fedfbceb5ac81e111e0ace4d1e5d3509360097c5478dfe06f5e09472caec5": {
+  "steps": [
+   {
+    "approval_ref": null,
+    "fields": [
+     {
+      "key": "record_type",
+      "value": "invoice_issued"
+     },
+     {
+      "key": "account_id",
+      "value": "ACME-104"
+     },
+     {
+      "key": "invoice_id",
+      "value": "INV-ACME-104-2026-10-10-A"
+     },
+     {
+      "key": "amount",
+      "value": "unknown"
+     },
+     {
+      "key": "currency",
+      "value": "USD"
+     },
+     {
+      "key": "issue_date",
+      "value": "2026-10-10"
+     },
+     {
+      "key": "due_date",
+      "value": "2026-11-09"
+     },
+     {
+      "key": "description",
+      "value": "Task A invoice for customer account ACME-104"
+     },
+     {
+      "key": "status",
+      "value": "issued"
+     },
+     {
+      "key": "ledger_account",
+      "value": "accounts_receivable"
+     },
+     {
+      "key": "created_by",
+      "value": "workflow_runtime"
+     }
+    ],
+    "id": "ledger"
+   },
+   {
+    "approval_ref": null,
+    "fields": [
+     {
+      "key": "recipient",
+      "value": "billing@acme.example"
+     },
+     {
+      "key": "recipient_name",
+      "value": "Accounts Payable, ACME"
+     },
+     {
+      "key": "subject",
+      "value": "Invoice INV-ACME-104-2026-10-10-A from Example Corp"
+     },
+     {
+      "key": "message",
+      "value": "Hello ACME team,\n\nPlease find attached the invoice INV-ACME-104-2026-10-10-A for Task A. The amount is currently marked as unknown; we will update once finalized. Due date: 2026-11-09.\n\nThank you,\nAccounts Receivable"
+     },
+     {
+      "key": "channel",
+      "value": "email"
+     },
+     {
+      "key": "reply_to",
+      "value": "ar@example.com"
+     },
+     {
+      "key": "priority",
+      "value": "normal"
+     },
+     {
+      "key": "invoice_id",
+      "value": "INV-ACME-104-2026-10-10-A"
+     },
+     {
+      "key": "account_id",
+      "value": "ACME-104"
+     },
+     {
+      "key": "amount",
+      "value": "unknown"
+     },
+     {
+      "key": "currency",
+      "value": "USD"
+     },
+     {
+      "key": "due_date",
+      "value": "2026-11-09"
+     },
+     {
+      "key": "attachments",
+      "value": "https://invoices.example.com/INV-ACME-104-2026-10-10-A.pdf"
+     }
+    ],
+    "id": "send_invoice"
+   }
+  ]
+ },
+ "fb008c1656da7725de52eda32de03eabd261a477718c7ffc6b23159e6345f0d4": {
+  "steps": [
+   {
+    "approval_ref": "approval:C:ledger",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "invoice_demo"
+     },
+     {
+      "key": "role",
+      "value": "C"
+     },
+     {
+      "key": "ref",
+      "value": "C-ledger"
+     },
+     {
+      "key": "record_type",
+      "value": "invoice_issued"
+     },
+     {
+      "key": "account_id",
+      "value": "INITECH-37"
+     },
+     {
+      "key": "invoice_id",
+      "value": "INV-INITECH-37-2026-10-10-C"
+     },
+     {
+      "key": "amount",
+      "value": "unknown"
+     },
+     {
+      "key": "currency",
+      "value": "USD"
+     },
+     {
+      "key": "issue_date",
+      "value": "2026-10-10"
+     },
+     {
+      "key": "due_date",
+      "value": "2026-11-09"
+     },
+     {
+      "key": "description",
+      "value": "Task C invoice for customer account INITECH-37"
+     },
+     {
+      "key": "status",
+      "value": "issued"
+     },
+     {
+      "key": "ledger_account",
+      "value": "accounts_receivable"
+     },
+     {
+      "key": "created_by",
+      "value": "workflow_runtime"
+     }
+    ],
+    "id": "ledger"
+   },
+   {
+    "approval_ref": "approval:C:send_invoice",
+    "fields": [
+     {
+      "key": "workflow",
+      "value": "invoice_demo"
+     },
+     {
+      "key": "role",
+      "value": "C"
+     },
+     {
+      "key": "ref",
+      "value": "C-send_invoice"
+     },
+     {
+      "key": "recipient",
+      "value": "billing@initech.example"
+     },
+     {
+      "key": "recipient_name",
+      "value": "Accounts Payable, INITECH"
+     },
+     {
+      "key": "subject",
+      "value": "Invoice INV-INITECH-37-2026-10-10-C from Example Corp"
+     },
+     {
+      "key": "message",
+      "value": "Hello INITECH team,\n\nPlease find attached the invoice INV-INITECH-37-2026-10-10-C for Task C. The amount is currently marked as unknown; we will update once finalized. Due date: 2026-11-09.\n\nThank you,\nAccounts Receivable"
+     },
+     {
+      "key": "channel",
+      "value": "email"
+     },
+     {
+      "key": "reply_to",
+      "value": "ar@example.com"
+     },
+     {
+      "key": "priority",
+      "value": "normal"
+     },
+     {
+      "key": "invoice_id",
+      "value": "INV-INITECH-37-2026-10-10-C"
+     },
+     {
+      "key": "account_id",
+      "value": "INITECH-37"
+     },
+     {
+      "key": "amount",
+      "value": "unknown"
+     },
+     {
+      "key": "currency",
+      "value": "USD"
+     },
+     {
+      "key": "due_date",
+      "value": "2026-11-09"
+     },
+     {
+      "key": "attachments",
+      "value": "https://invoices.example.com/INV-INITECH-37-2026-10-10-C.pdf"
+     }
+    ],
+    "id": "send_invoice"
+   }
+  ]
+ }
+}

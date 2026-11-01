@@ -1,0 +1,83 @@
+==============================================================================
+Invoice demo: two tasks share a cached invoice plan; task A is revoked
+Deployment under audit (hidden from the auditor): enqueue_only
+  - enqueue_only: authorization checked only at enqueue
+==============================================================================
+
+[1] Operator revokes A with parent-only shutdown (what the deployment does today)
+  t= 0  A  plan           
+  t= 0  A  cache_put      
+  t= 1  A  delegate       ledger
+  t= 1  A  delegate       send_invoice
+  t= 2  A  gateway_allow  ledger presented=A/W2 reason=checked
+  t= 2  A  effect         write_record ledger
+  t= 2  A  enqueue        send_invoice
+  t= 3  A  revoke         operator revokes A (also voids A/W1, A/W2)
+  t= 4  B  cache_hit      reuses plan from A; carried approvals=[]
+  t= 5  B  delegate       ledger
+  t= 5  B  delegate       send_invoice
+  t= 6  B  gateway_allow  ledger presented=B/W2 reason=checked
+  t= 6  B  effect         write_record ledger
+  t= 6  B  enqueue        send_invoice
+  t= 7  A  dequeue        send_invoice
+  t= 8  A  gateway_allow  send_invoice presented=A/W1 reason=trusted_enqueue
+  t= 8  A  effect         send_message send_invoice  <-- SURVIVING AUTHORITY (relies on revoked task)
+  t=11  B  dequeue        send_invoice
+  t=12  B  gateway_allow  send_invoice presented=B/W1 reason=trusted_enqueue
+  t=12  B  effect         send_message send_invoice
+  A effects after revocation: 1   B completed legitimately: 2/2
+
+[2] Auditor runs (full telemetry, 10-probe budget, active probe selection)
+  probe  1: delay_notification(ledger)       no violation    K=-  belief: reference 0.31, enqueue_only 0.13
+  probe  2: retry_after_stop(send_invoice)   COUNTEREXAMPLE  K=-  belief: enqueue_only 0.63, cache_carries_auth+enqueue_only 0.27
+  probe  3: revoked_plan_reuse               no violation    K=['commit_check']  belief: enqueue_only 0.91, OTHER:mixed_batch 0.01
+  probe  4: independent_reuse                no violation    K=['commit_check']  belief: enqueue_only 0.92, OTHER:mixed_batch 0.01
+  probe  5: revoke_after_enqueue(send_invoice) no violation    K=['commit_check']  belief: enqueue_only 0.92, OTHER:mixed_batch 0.01
+  probe  6: revoke_before_commit(ledger)     no violation    K=['commit_check']  belief: enqueue_only 0.93, OTHER:mixed_batch 0.01
+  probe  7: retry_after_stop(send_invoice)   no violation    K=['commit_check']  belief: enqueue_only 0.93, OTHER:mixed_batch 0.01
+  probe  8: revoke_early                     no violation    K=['commit_check']  belief: enqueue_only 0.94, OTHER:mixed_batch 0.01
+  probe  9: restart_stale(ledger)            no violation    K=['commit_check']  belief: enqueue_only 0.95, OTHER:mixed_batch 0.01
+  probe 10: revoke_inflight(send_invoice)    no violation    K=['commit_check']  belief: enqueue_only 0.95, OTHER:mixed_batch 0.01
+
+  counterexample 1 (from retry_after_stop(send_invoice)):
+    minimal failure conditions: transient failure x2 on A.send_invoice; step send_invoice
+    surviving effects: A.send_invoice
+    explained by: enqueue_only
+    authority path: revocation -> delegation -> queue -> retry -> gateway -> external effect
+    single interventions that block it in replay: commit_check
+  after counterexample 1: chose ['commit_check'] (cost 2.00)
+
+  selected containment (grouped optimum): ['commit_check']  cost 2.00
+  weighted min-cut on the authority graph:  ['commit_check']
+  auditor's report: no counterexample within budget (residual risk 0.042)
+  experiments: 10 probes, 409 replays for minimization/validation/collateral
+
+[3] Same revocation with the selected containment
+  t= 0  A  plan           
+  t= 0  A  cache_put      
+  t= 1  A  delegate       ledger
+  t= 1  A  delegate       send_invoice
+  t= 2  A  gateway_allow  ledger presented=A/W2 reason=commit_check
+  t= 2  A  effect         write_record ledger
+  t= 2  A  enqueue        send_invoice
+  t= 3  A  revoke         operator revokes A (also voids A/W1, A/W2)
+  t= 4  B  cache_hit      reuses plan from A; carried approvals=[]
+  t= 5  B  delegate       ledger
+  t= 5  B  delegate       send_invoice
+  t= 6  B  gateway_allow  ledger presented=B/W2 reason=commit_check
+  t= 6  B  effect         write_record ledger
+  t= 6  B  enqueue        send_invoice
+  t= 7  A  dequeue        send_invoice
+  t= 8  A  gateway_deny   send_invoice presented=A/W1 reason=commit_check
+  t=11  B  dequeue        send_invoice
+  t=12  B  gateway_allow  send_invoice presented=B/W1 reason=commit_check
+  t=12  B  effect         send_message send_invoice
+  A effects after revocation: 0   B completed legitimately: 2/2
+
+[4] Comparison on the demo schedule
+  parent-only            A effects after revocation: 1   B completed legitimately: 2/2
+  blanket shutdown       A effects after revocation: 0   B completed legitimately: 0/2
+  selected containment   A effects after revocation: 0   B completed legitimately: 2/2
+
+[5] Bounded exhaustive check of deployment + containment over 2160 schedules: CLOSED within the bound
+    legitimate independent work completed across the collateral suite: 100%

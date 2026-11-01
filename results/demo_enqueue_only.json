@@ -1,0 +1,39 @@
+{
+ "flaws": [
+  "enqueue_only"
+ ],
+ "K": [
+  "commit_check"
+ ],
+ "mincut_K": [
+  "commit_check"
+ ],
+ "claim": "residual_risk",
+ "before": "A effects after revocation: 1   B completed legitimately: 2/2",
+ "after": "A effects after revocation: 0   B completed legitimately: 2/2",
+ "closed": true,
+ "counterexamples": [
+  {
+   "probe": "retry_after_stop(send_invoice)",
+   "conditions": [
+    "transient failure x2 on A.send_invoice",
+    "step send_invoice"
+   ],
+   "explanation": [
+    "enqueue_only",
+    "child_survives",
+    "worker_attested"
+   ],
+   "blocking": [
+    "commit_check"
+   ],
+   "path": [
+    "revocation",
+    "delegation",
+    "queue",
+    "retry",
+    "gateway"
+   ]
+  }
+ ]
+}
